@@ -96,7 +96,14 @@
             }
 
             try {
-                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                // ĐÃ SỬA: Tắt các bộ lọc tiếng ồn của trình duyệt
+                const stream = await navigator.mediaDevices.getUserMedia({ 
+                    audio: {
+                        echoCancellation: false,
+                        autoGainControl: false,
+                        noiseSuppression: false
+                    } 
+                });
                 setupAudio(stream);
                 setupScreen.classList.add('hidden');
                 cakeScreen.classList.remove('hidden');
@@ -119,8 +126,8 @@
             let sum = 0; for (let i = 0; i < bufferLength; i++) sum += dataArray[i];
             let average = sum / bufferLength;
 
-            // Chỉnh độ nhạy tiếng thổi ở đây (mặc định > 80 là ok)
-            if (average > 80) blowOutCandles(); else requestAnimationFrame(listenToBlow);
+            // ĐÃ SỬA: Giảm độ nhạy xuống để dễ thổi tắt hơn
+            if (average > 40) blowOutCandles(); else requestAnimationFrame(listenToBlow);
         }
 
         function blowOutCandles() {
