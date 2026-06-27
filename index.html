@@ -199,15 +199,23 @@
             max-width: 95vw;
             margin-top: 60px;
             animation: cakeFloat 4s ease-in-out infinite alternate;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        .cake-img {
-            width: 500%;
-            height: auto;
-            display: block;
-            filter: drop-shadow(0 25px 45px rgba(0, 0, 0, 0.7));
-            cursor: pointer;
-        }
+.cake-img {
+    width: 500%;
+    height: auto;
+    display: block;
+
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+
+    filter: drop-shadow(0 25px 45px rgba(0,0,0,.7));
+}
 
         @keyframes cakeFloat {
             0% { transform: translateY(0); }
