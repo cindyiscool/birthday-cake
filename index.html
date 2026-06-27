@@ -193,10 +193,10 @@
         }
 
         /* Khung chứa bánh kem - Phóng to kích thước của bánh kem */
-        .cake-container {
+     .cake-container {
     position: relative;
-    width: 320px; /* Thay đổi từ 320px thành 450px hoặc to hơn nữa */
-    max-width: 150vw;
+    width: 450px; /* Số này càng lớn thì hình bánh kem càng to */
+    max-width: 90vw;
     margin-top: 40px;
     animation: cakeFloat 4s ease-in-out infinite alternate;
 }
@@ -345,7 +345,7 @@
         // Khởi tạo các cây nến theo mô hình 3D Perspective Ellipse
         function createCandles() {
             const age = 15; // Set 15 cây nến
-            const Rx = 18;  // Bán kính ngang (%)
+            const Rx = 15;  // Bán kính ngang (%)
             const Ry = 4.5; // Bán kính dọc (%) để tạo góc nghiêng 3D
             const centerX = 50.0; // Điểm căn giữa ngang (%)
             const centerY = 50.6; // Điểm căn giữa dọc (ngay vị trí mặt thớt bánh thứ 2)
