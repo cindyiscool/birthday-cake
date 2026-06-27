@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday, Anh Long! 🎂</title>
-    <!-- Imports Google Fonts: 'Oi' (Main bold display) & 'Outfit' (Body text) -->
+    <title>Happy Birthday, Long! </title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Oi&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oi&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     
-    <!-- Canvas Confetti Library for victory celebration -->
+   
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     
     <style>
@@ -20,7 +19,7 @@
         }
 
         body {
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Roboto', sans-serif;
             background: radial-gradient(circle at center, #1b1437 0%, #0d091a 100%);
             color: white;
             min-height: 100vh;
@@ -35,7 +34,7 @@
             display: none !important;
         }
 
-        /* Background Aurora Glow Effects */
+        
         .glow-orb {
             position: absolute;
             border-radius: 50%;
@@ -68,7 +67,7 @@
             100% { transform: translate(60px, 80px) scale(1.15); }
         }
 
-        /* Screen 1: Start/Intro Overlay (Glassmorphism) */
+      
         .screen-card {
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(20px);
@@ -105,10 +104,11 @@
             color: rgba(255, 255, 255, 0.7);
             margin-bottom: 35px;
             line-height: 1.6;
+            font-weight: 300;
         }
 
         .btn-primary {
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Roboto', sans-serif;
             padding: 16px 38px;
             border-radius: 50px;
             border: none;
@@ -116,7 +116,7 @@
             background-size: 200% auto;
             color: white;
             font-size: 18px;
-            font-weight: 800;
+            font-weight: 900;
             letter-spacing: 0.5px;
             cursor: pointer;
             transition: all 0.5s ease;
@@ -134,7 +134,7 @@
             transform: translateY(-1px) scale(0.98);
         }
 
-        /* Screen 2: Interactive Cake Screen */
+     
         #cake-screen {
             display: flex;
             flex-direction: column;
@@ -156,7 +156,7 @@
                 0 0 15px rgba(255, 232, 133, 0.6), 
                 0 0 30px rgba(229, 46, 113, 0.4);
             position: absolute;
-            top: 8%;
+            top: 6%;
             opacity: 0;
             transform: translateY(30px) scale(0.9);
             transition: all 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -175,10 +175,10 @@
 
         .instructions {
             position: absolute;
-            bottom: 8%;
+            bottom: 6%;
             font-size: 18px;
-            font-weight: 600;
-            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.85);
             background: rgba(255, 255, 255, 0.05);
             padding: 12px 28px;
             border-radius: 30px;
@@ -189,12 +189,12 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
         }
 
-        /* Cake Visual Element */
+    
         .cake-container {
             position: relative;
-            width: 440px;
-            max-width: 90vw;
-            margin-top: 50px;
+            width: 600px; 
+            max-width: 95vw;
+            margin-top: 60px;
             animation: cakeFloat 4s ease-in-out infinite alternate;
         }
 
@@ -202,7 +202,7 @@
             width: 100%;
             height: auto;
             display: block;
-            filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.65));
+            filter: drop-shadow(0 25px 45px rgba(0, 0, 0, 0.7));
         }
 
         @keyframes cakeFloat {
@@ -210,7 +210,7 @@
             100% { transform: translateY(-12px); }
         }
 
-        /* Candles Rendering & Animation */
+        /* Nến và ngọn lửa */
         .candles {
             position: absolute;
             top: 0;
@@ -222,8 +222,8 @@
         }
 
         .candle {
-            width: 8px;
-            height: var(--candle-height, 45px);
+            width: 9px; 
+            height: var(--candle-height, 48px);
             background: repeating-linear-gradient(
                 45deg,
                 #ffffff,
@@ -239,11 +239,11 @@
 
         .flame {
             position: absolute;
-            top: -20px;
+            top: -22px;
             left: 50%;
             transform: translateX(-50%);
-            width: 12px;
-            height: 22px;
+            width: 13px; 
+            height: 24px;
             background: radial-gradient(
                 ellipse at center,
                 #ffffff 0%,
@@ -261,7 +261,7 @@
             transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
         }
 
-        /* Smoke effect when candle gets blown out */
+        /* Hiệu ứng khói khi nến tắt */
         .smoke {
             position: absolute;
             top: -15px;
@@ -301,26 +301,26 @@
 </head>
 <body>
 
-    <!-- Background glowing aesthetics -->
+    <!-- Các quầng sáng trang trí ở nền -->
     <div class="glow-orb orb-1"></div>
     <div class="glow-orb orb-2"></div>
 
-    <!-- Màn hình 1: Lời giới thiệu & Nút kích hoạt (Start Screen) -->
+    <!-- Màn hình 1: Lời giới thiệu & Nút kích hoạt -->
     <div id="setup-screen" class="screen-card">
-        <h1 class="title-oi">HAPPY BIRTHDAY<br>ANH LONG! 🎉</h1>
-        <p class="subtitle">Hãy chuẩn bị thổi tắt nến trên chiếc bánh sinh nhật đặc biệt này nhé!</p>
-        <button id="startBtn" class="btn-primary">THẮP NẾN & BẮT ĐẦU! 🕯️</button>
+        <h1 class="title-oi">HAPPY BIRTHDAY<br> LONG! </h1>
+        <p class="subtitle">=)))) Wao cindysocool, ik</p>
+        <button id="startBtn" class="btn-primary"> OK VÔ ĐI </button>
     </div>
 
-    <!-- Màn hình 2: Bánh sinh nhật & thổi nến (Interactive Screen) -->
+    <!-- Màn hình 2: Bánh sinh nhật & tương tác thổi nến -->
     <div id="cake-screen" class="screen hidden">
-        <h1 id="birthdayText" class="birthday-text">HAPPY BIRTHDAY,<br>ANH LONG! 🥳</h1>
+        <h1 id="birthdayText" class="birthday-text">HAPPY BIRTHDAY,<br> LONG! </h1>
         <div class="cake-container">
             <div class="candles" id="candlesContainer"></div>
-            <!-- Sử dụng ảnh bánh kem Ronaldo đã xử lý tách nền trong suốt -->
+            <!-- File ảnh cake.png đã được loại bỏ nền ô cờ ô vuông đen trắng -->
             <img src="cake.png" class="cake-img" alt="Bánh sinh nhật CR7">
         </div>
-        <div class="instructions" id="instructionsText">Đưa miệng gần micro và <strong>THỔI MẠNH</strong> để tắt nến nhé! 💨</div>
+        <div class="instructions" id="instructionsText">Đưa miệng gần micro và <strong>THỔI MẠNH</strong> thì chắc là nến sẽ tắt!</div>
     </div>
 
     <script>
@@ -407,7 +407,7 @@
                 // Bắt đầu lắng nghe tiếng gió thổi
                 listenToBlow();
             } catch (err) { 
-                alert("Bạn cần nhấn 'Cho phép' (Allow) sử dụng Microphone để thổi tắt nến nhé!"); 
+                alert('Cho phép' (Allow) sử dụng Microphone!"); 
             }
         });
 
