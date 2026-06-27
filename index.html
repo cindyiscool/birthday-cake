@@ -195,27 +195,19 @@
         /* Khung chứa bánh kem - Phóng to kích thước của bánh kem */
         .cake-container {
             position: relative;
-            width: 600px; 
-            max-width: 95vw;
-            margin-top: 60px;
+            width: 320px; 
+            max-width: 90vw;
+            margin-top: 40px;
             animation: cakeFloat 4s ease-in-out infinite alternate;
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
 
-.cake-img {
-    width: 100%;
-    height: auto;
-    display: block;
-
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-
-    filter: drop-shadow(0 25px 45px rgba(0,0,0,.7));
-}
+        .cake-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: drop-shadow(0 25px 45px rgba(0, 0, 0, 0.7));
+            cursor: pointer;
+        }
 
         @keyframes cakeFloat {
             0% { transform: translateY(0); }
@@ -336,8 +328,7 @@
     </div>
 
     <script>
-        const startBtn = document.getElementById
-            ('startBtn');
+        const startBtn = document.getElementById('startBtn');
         const setupScreen = document.getElementById('setup-screen');
         const cakeScreen = document.getElementById('cake-screen');
         const cakeImg = document.getElementById('cakeImg');
@@ -354,10 +345,10 @@
         // Khởi tạo các cây nến theo mô hình 3D Perspective Ellipse
         function createCandles() {
             const age = 15; // Set 15 cây nến
-            const Rx = 23;  // Bán kính ngang (%)
-            const Ry = 6.5; // Bán kính dọc (%) để tạo góc nghiêng 3D
-            const centerX = 50.5; // Điểm căn giữa ngang (%)
-            const centerY = 56.5; // Điểm căn giữa dọc (ngay vị trí mặt thớt bánh thứ 2)
+            const Rx = 33;  // Bán kính ngang (%)
+            const Ry = 7.4; // Bán kính dọc (%) để tạo góc nghiêng 3D
+            const centerX = 50.0; // Điểm căn giữa ngang (%)
+            const centerY = 50.6; // Điểm căn giữa dọc (ngay vị trí mặt thớt bánh thứ 2)
 
             candlesContainer.innerHTML = '';
             litCandles = [];
