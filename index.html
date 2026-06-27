@@ -3,71 +3,324 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday!</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+    <title>Happy Birthday, Long! 🎂</title>
+    <!-- Nhúng Google Fonts: font 'Oi' (dành cho tiêu đề) & 'Outfit' (dành cho mô tả) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oi&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Thư viện tạo hiệu ứng pháo hoa giấy khi thổi tắt hết nến -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Outfit', sans-serif; background: linear-gradient(135deg, #130f24, #1c1535); color: white; min-height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; }
-        .hidden { display: none !important; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-        /* Màn hình 1 */
-        #setup-screen { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); padding: 40px; border-radius: 20px; text-align: center; border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 20px 40px rgba(0,0,0,0.5); animation: fadeIn 1s ease; }
-        #setup-screen h1 { margin-bottom: 20px; font-size: 28px; background: linear-gradient(to right, #ff8a00, #e52e71); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .input-group { margin-bottom: 20px; }
-        input { width: 100%; padding: 15px; border-radius: 10px; border: none; background: rgba(255, 255, 255, 0.1); color: white; font-size: 16px; outline: none; transition: 0.3s; }
-        input:focus { background: rgba(255, 255, 255, 0.2); box-shadow: 0 0 10px rgba(229, 46, 113, 0.5); }
-        button { padding: 15px 30px; border-radius: 30px; border: none; background: linear-gradient(45deg, #ff8a00, #e52e71); color: white; font-size: 18px; font-weight: bold; cursor: pointer; transition: transform 0.3s, box-shadow 0.3s; }
-        button:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(229, 46, 113, 0.4); }
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: radial-gradient(circle at center, #1b1437 0%, #0d091a 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
 
-        /* Màn hình 2 */
-        #cake-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; width: 100%; position: relative; }
-        .birthday-text { font-family: 'Pacifico', cursive; font-size: 60px; color: #ff9d00; text-shadow: 0 0 20px rgba(255, 157, 0, 0.8), 0 0 40px rgba(229, 46, 113, 0.6); position: absolute; top: 15%; opacity: 0; transform: translateY(20px) scale(0.8); transition: all 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); text-align: center; z-index: 10; }
-        .show-text { opacity: 1; transform: translateY(0) scale(1); }
-        .instructions { position: absolute; bottom: 10%; font-size: 20px; color: rgba(255, 255, 255, 0.7); animation: pulse 2s infinite; }
+        .hidden {
+            display: none !important;
+        }
 
-        /* Bánh và nến */
-        .cake-container { position: relative; margin-top: 100px; }
-        .candles { display: flex; justify-content: center; gap: 15px; position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); z-index: 2; width: 80%; flex-wrap: wrap; }
-        .candle { width: 12px; height: 50px; background: repeating-linear-gradient(45deg, #fff, #fff 5px, #ff5e62 5px, #ff5e62 10px); border-radius: 3px; position: relative; box-shadow: 0 2px 5px rgba(0,0,0,0.2); margin-bottom: -10px; }
-        .flame { position: absolute; top: -25px; left: 50%; transform: translateX(-50%); width: 16px; height: 28px; background: radial-gradient(ellipse at center, #fff 0%, #ffdf00 20%, #ff8c00 60%, rgba(255,0,0,0) 100%); border-radius: 50% 50% 20% 20%; box-shadow: 0 0 15px #ffdf00, 0 0 30px #ff8c00; animation: flicker 0.1s infinite alternate; transform-origin: bottom center; transition: all 0.5s ease; }
-        
-        /* Hiệu ứng */
-        @keyframes flicker { 0% { transform: translateX(-50%) scale(1) rotate(-1deg); opacity: 0.9; } 100% { transform: translateX(-50%) scale(1.1) rotate(2deg); opacity: 1; } }
-        @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        /* Hiệu ứng đèn Neon mờ ảo ở nền (Aurora) */
+        .glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.15;
+            z-index: 0;
+            pointer-events: none;
+            animation: orbFloat 25s infinite alternate ease-in-out;
+        }
 
-        /* Vẽ bánh */
-        .cake { width: 300px; height: 120px; background: #ffb6c1; border-radius: 15px 15px 10px 10px; position: relative; box-shadow: inset 0 -20px rgba(0,0,0,0.1), 0 10px 20px rgba(0,0,0,0.3); z-index: 1; }
-        .icing { position: absolute; top: 0; left: 0; width: 100%; height: 40px; background: #fff; border-radius: 15px 15px 20px 20px; }
-        .icing-drips { position: absolute; top: 20px; width: 30px; height: 50px; background: #fff; border-radius: 30px; }
-        .drip-1 { left: 20px; height: 45px; } .drip-2 { left: 80px; height: 60px; } .drip-3 { left: 150px; height: 40px; } .drip-4 { left: 210px; height: 65px; } .drip-5 { left: 260px; height: 35px; }
-        .plate { width: 400px; height: 30px; background: #dcdcdc; border-radius: 50%; position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%); box-shadow: 0 15px 20px rgba(0,0,0,0.4); z-index: 0; }
+        .orb-1 {
+            width: 450px;
+            height: 450px;
+            background: #ff8a00;
+            top: 5%;
+            left: 10%;
+        }
+
+        .orb-2 {
+            width: 550px;
+            height: 550px;
+            background: #e52e71;
+            bottom: 5%;
+            right: 10%;
+            animation-delay: -7s;
+        }
+
+        @keyframes orbFloat {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(60px, 80px) scale(1.15); }
+        }
+
+        /* Màn hình khởi đầu 1: Thiết kế hiệu ứng kính mờ (Glassmorphism) */
+        .screen-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 50px 40px;
+            border-radius: 28px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            max-width: 480px;
+            width: 90%;
+            z-index: 10;
+            animation: cardFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes cardFadeIn {
+            from { opacity: 0; transform: translateY(30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .title-oi {
+            font-family: 'Oi', cursive;
+            font-size: 26px;
+            line-height: 1.5;
+            background: linear-gradient(135deg, #ff8a00 0%, #e52e71 50%, #d62eff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 24px;
+            text-shadow: 0 4px 30px rgba(229, 46, 113, 0.25);
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 35px;
+            line-height: 1.6;
+        }
+
+        .btn-primary {
+            font-family: 'Outfit', sans-serif;
+            padding: 16px 38px;
+            border-radius: 50px;
+            border: none;
+            background: linear-gradient(135deg, #ff8a00 0%, #e52e71 50%, #9025ff 100%);
+            background-size: 200% auto;
+            color: white;
+            font-size: 18px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            box-shadow: 0 12px 25px rgba(229, 46, 113, 0.35);
+            outline: none;
+        }
+
+        .btn-primary:hover {
+            background-position: right center;
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: 0 20px 35px rgba(229, 46, 113, 0.5);
+        }
+
+        .btn-primary:active {
+            transform: translateY(-1px) scale(0.98);
+        }
+
+        /* Màn hình 2: Bánh kem & tương tác thổi nến */
+        #cake-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            z-index: 5;
+        }
+
+        .birthday-text {
+            font-family: 'Oi', cursive;
+            font-size: 36px;
+            background: linear-gradient(135deg, #ffffff 10%, #ffe885 50%, #ff4b82 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 
+                0 0 15px rgba(255, 232, 133, 0.6), 
+                0 0 30px rgba(229, 46, 113, 0.4);
+            position: absolute;
+            top: 8%;
+            opacity: 0;
+            transform: translateY(30px) scale(0.9);
+            transition: all 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-align: center;
+            z-index: 10;
+            width: 90%;
+            max-width: 750px;
+            line-height: 1.5;
+            pointer-events: none;
+        }
+
+        .show-text {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .instructions {
+            position: absolute;
+            bottom: 8%;
+            font-size: 18px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px 28px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            animation: pulse 2.2s infinite;
+            transition: opacity 0.5s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Khung chứa bánh kem */
+        .cake-container {
+            position: relative;
+            width: 440px;
+            max-width: 90vw;
+            margin-top: 50px;
+            animation: cakeFloat 4s ease-in-out infinite alternate;
+        }
+
+        .cake-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.65));
+        }
+
+        @keyframes cakeFloat {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-12px); }
+        }
+
+        /* Nến và ngọn lửa */
+        .candles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .candle {
+            width: 8px;
+            height: var(--candle-height, 45px);
+            background: repeating-linear-gradient(
+                45deg,
+                #ffffff,
+                #ffffff 4px,
+                #ff5e62 4px,
+                #ff5e62 8px
+            );
+            border-radius: 3px;
+            position: absolute;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+            transform-origin: bottom center;
+        }
+
+        .flame {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 22px;
+            background: radial-gradient(
+                ellipse at center,
+                #ffffff 0%,
+                #ffdf00 25%,
+                #ff8c00 60%,
+                rgba(255, 69, 0, 0) 100%
+            );
+            border-radius: 50% 50% 20% 20%;
+            box-shadow: 
+                0 0 10px #ffdf00,
+                0 0 20px #ff8c00,
+                0 0 30px #ff4500;
+            animation: flicker 0.15s infinite alternate;
+            transform-origin: bottom center;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
+        }
+
+        /* Hiệu ứng khói khi nến tắt */
+        .smoke {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.45);
+            border-radius: 50%;
+            filter: blur(2px);
+            animation: riseAndFade 1.2s ease-out forwards;
+            pointer-events: none;
+        }
+
+        @keyframes riseAndFade {
+            0% {
+                transform: translate(-50%, 0) scale(1);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translate(-50%, -40px) scale(2.8) skewX(12deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes flicker {
+            0% { transform: translateX(-50%) scale(1) rotate(-1.5deg); opacity: 0.85; }
+            100% { transform: translateX(-50%) scale(1.08) rotate(2deg); opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
     </style>
 </head>
 <body>
 
-    <div id="setup-screen" class="screen">
-        <h1>Chuẩn bị bánh sinh nhật 🎂</h1>
-        <div class="input-group">
-            <input type="text" id="nameInput" placeholder="Tên người nhận">
-        </div>
-        <div class="input-group">
-            <input type="number" id="ageInput" placeholder="Số tuổi (số nến)">
-        </div>
-        <button id="startBtn">Đốt Nến & Bắt Đầu!</button>
+    <!-- Các quầng sáng trang trí ở nền -->
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+
+    <!-- Màn hình 1: Lời giới thiệu & Nút kích hoạt -->
+    <div id="setup-screen" class="screen-card">
+        <h1 class="title-oi">HAPPY BIRTHDAY<br>ANH LONG! 🎉</h1>
+        <p class="subtitle">Hãy chuẩn bị thổi tắt nến trên chiếc bánh sinh nhật đặc biệt này nhé!</p>
+        <button id="startBtn" class="btn-primary">THẮP NẾN & BẮT ĐẦU! 🕯️</button>
     </div>
 
+    <!-- Màn hình 2: Bánh sinh nhật & tương tác thổi nến -->
     <div id="cake-screen" class="screen hidden">
-        <h1 id="birthdayText" class="birthday-text">Happy Birthday, <br><span id="nameDisplay"></span>!</h1>
+        <h1 id="birthdayText" class="birthday-text">HAPPY BIRTHDAY,<br>ANH LONG! 🥳</h1>
         <div class="cake-container">
             <div class="candles" id="candlesContainer"></div>
-            <div class="cake">
-                <div class="icing"></div>
-                <div class="icing-drips drip-1"></div><div class="icing-drips drip-2"></div><div class="icing-drips drip-3"></div><div class="icing-drips drip-4"></div><div class="icing-drips drip-5"></div>
-            </div>
-            <div class="plate"></div>
+            <!-- File ảnh cake.png đã được loại bỏ nền ô cờ ô vuông đen trắng -->
+            <img src="cake.png" class="cake-img" alt="Bánh sinh nhật CR7">
         </div>
-        <div class="instructions" id="instructionsText">Đưa miệng sát micro và <strong>THỔI MẠNH</strong> nhé! 💨</div>
+        <div class="instructions" id="instructionsText">Đưa miệng gần micro và <strong>THỔI MẠNH</strong> để tắt nến nhé! 💨</div>
     </div>
 
     <script>
@@ -75,65 +328,199 @@
         const setupScreen = document.getElementById('setup-screen');
         const cakeScreen = document.getElementById('cake-screen');
         const candlesContainer = document.getElementById('candlesContainer');
-        const nameDisplay = document.getElementById('nameDisplay');
         const birthdayText = document.getElementById('birthdayText');
         const instructionsText = document.getElementById('instructionsText');
 
-        let audioContext; let analyser; let microphone; let isBlown = false;
+        let audioContext;
+        let analyser;
+        let microphone;
+        let isBlown = false;
+        let litCandles = [];
 
-        startBtn.addEventListener('click', async () => {
-            const name = document.getElementById('nameInput').value || 'bạn';
-            let age = parseInt(document.getElementById('ageInput').value) || 1;
-            if (age > 50) age = 50; 
-            
-            nameDisplay.innerText = name;
+        // Khởi tạo các cây nến theo mô hình 3D Perspective Ellipse
+        function createCandles() {
+            const age = 15; // Set 15 cây nến
+            const Rx = 23;  // Bán kính ngang (%)
+            const Ry = 6.5; // Bán kính dọc (%) để tạo góc nghiêng 3D
+            const centerX = 50.5; // Điểm căn giữa ngang (%)
+            const centerY = 56.5; // Điểm căn giữa dọc (ngay vị trí mặt thớt bánh thứ 2)
+
             candlesContainer.innerHTML = '';
-            for(let i=0; i<age; i++) {
-                const candle = document.createElement('div'); candle.className = 'candle';
-                const flame = document.createElement('div'); flame.className = 'flame';
-                candle.style.height = (40 + Math.random() * 15) + 'px';
-                candle.appendChild(flame); candlesContainer.appendChild(candle);
+            litCandles = [];
+
+            for (let i = 0; i < age; i++) {
+                // Phân bố đều góc từ 180 độ (bên trái) qua 0 độ (bên phải)
+                const angle = (i / (age - 1)) * Math.PI;
+                const theta = Math.PI - angle; // đi từ trái sang phải
+
+                // Tính tọa độ dựa trên phương trình Ellipse
+                const x = centerX + Rx * Math.cos(theta);
+                const y = centerY + Ry * Math.sin(theta);
+
+                // Tạo đối tượng nến
+                const candle = document.createElement('div');
+                candle.className = 'candle';
+                candle.style.left = `${x}%`;
+                candle.style.top = `${y}%`;
+
+                // Tỉ lệ scale phối cảnh: nến ở gần (dưới) to hơn nến ở xa (trên)
+                const scale = 0.85 + (Math.sin(theta) * 0.15);
+                candle.style.transform = `translate(-50%, -100%) scale(${scale})`;
+                
+                // Trật tự hiển thị 2.5D: nến ở trước đè lên nến ở sau
+                candle.style.zIndex = Math.round(y * 10);
+
+                // Chiều cao ngẫu nhiên chút ít trông tự nhiên
+                const candleHeight = 38 + Math.random() * 12;
+                candle.style.setProperty('--candle-height', `${candleHeight}px`);
+
+                // Tạo ngọn lửa
+                const flame = document.createElement('div');
+                flame.className = 'flame';
+                // Tạo độ trễ animation ngẫu nhiên giúp lửa nhảy nhót so le sinh động
+                flame.style.animationDelay = `${Math.random() * 0.2}s`;
+
+                candle.appendChild(flame);
+                candlesContainer.appendChild(candle);
+                litCandles.push(candle);
             }
+        }
+
+        // Bắt đầu ứng dụng
+        startBtn.addEventListener('click', async () => {
+            createCandles();
 
             try {
+                // Yêu cầu quyền truy cập Micro và tắt bộ lọc ồn để bắt tiếng thổi tốt nhất
                 const stream = await navigator.mediaDevices.getUserMedia({ 
-                    audio: { echoCancellation: false, autoGainControl: false, noiseSuppression: false } 
+                    audio: { 
+                        echoCancellation: false, 
+                        autoGainControl: false, 
+                        noiseSuppression: false 
+                    } 
                 });
+                
                 setupAudio(stream);
                 setupScreen.classList.add('hidden');
                 cakeScreen.classList.remove('hidden');
+                
+                // Bắt đầu lắng nghe tiếng gió thổi
                 listenToBlow();
-            } catch (err) { alert("Bạn cần bấm 'Cho phép' (Allow) sử dụng Micro thì mới thổi nến được nhé!"); }
+            } catch (err) { 
+                alert("Bạn cần nhấn 'Cho phép' (Allow) sử dụng Microphone để thổi tắt nến nhé!"); 
+            }
         });
 
+        // Thiết lập bộ phân tích âm thanh từ mic
         function setupAudio(stream) {
             audioContext = new (window.AudioContext || window.webkitAudioContext)();
             analyser = audioContext.createAnalyser();
             microphone = audioContext.createMediaStreamSource(stream);
-            microphone.connect(analyser); analyser.fftSize = 256;
+            microphone.connect(analyser); 
+            analyser.fftSize = 256;
         }
 
+        // Vòng lặp phân tích âm thanh liên tục
         function listenToBlow() {
             if (isBlown) return;
+
             const bufferLength = analyser.frequencyBinCount;
             const dataArray = new Uint8Array(bufferLength);
             analyser.getByteFrequencyData(dataArray);
-            let sum = 0; for (let i = 0; i < bufferLength; i++) sum += dataArray[i];
+
+            let sum = 0; 
+            for (let i = 0; i < bufferLength; i++) {
+                sum += dataArray[i];
+            }
             let average = sum / bufferLength;
 
-            if (average > 40) blowOutCandles(); else requestAnimationFrame(listenToBlow);
+            // Kiểm tra cường độ âm thanh thổi (thường tiếng gió rít có volume > 30)
+            if (average > 30) {
+                // Cường độ gió quyết định số lượng nến bị dập tắt cùng lúc
+                let blowCount = Math.floor((average - 30) / 4) + 1;
+                blowCount = Math.min(blowCount, litCandles.length);
+
+                for (let k = 0; k < blowCount; k++) {
+                    if (litCandles.length > 0) {
+                        // Chọn ngẫu nhiên một cây nến còn sáng để dập tắt
+                        const randIdx = Math.floor(Math.random() * litCandles.length);
+                        const candle = litCandles.splice(randIdx, 1)[0];
+                        extinguishCandle(candle);
+                    }
+                }
+            }
+
+            // Nếu vẫn còn nến sáng thì tiếp tục lắng nghe, ngược lại thì ăn mừng!
+            if (litCandles.length > 0) {
+                requestAnimationFrame(listenToBlow);
+            } else {
+                triggerCelebration();
+            }
         }
 
-        function blowOutCandles() {
+        // Dập tắt lửa của cây nến cụ thể và thêm khói bay lên
+        function extinguishCandle(candle) {
+            const flame = candle.querySelector('.flame');
+            if (flame) {
+                flame.style.transform = 'translateX(-50%) scale(0)';
+                flame.style.opacity = '0';
+                setTimeout(() => flame.remove(), 400);
+            }
+
+            // Tạo hiệu ứng khói trắng mờ bay lên khi nến tắt
+            const smoke = document.createElement('div');
+            smoke.className = 'smoke';
+            candle.appendChild(smoke);
+            
+            // Xóa khói sau khi kết thúc animation
+            setTimeout(() => {
+                smoke.remove();
+            }, 1200);
+        }
+
+        // Ăn mừng sinh nhật hoành tráng
+        function triggerCelebration() {
             isBlown = true;
-            const flames = document.querySelectorAll('.flame');
-            flames.forEach(flame => { 
-                // ĐÃ SỬA: Ép tắt luôn cả animation và ẩn luôn đi
-                flame.style.animation = 'none'; 
-                flame.style.display = 'none'; 
-            });
-            instructionsText.style.display = 'none';
+            
+            // Ẩn dòng chữ hướng dẫn thổi nến
+            instructionsText.style.opacity = '0';
+            setTimeout(() => instructionsText.classList.add('hidden'), 500);
+
+            // Hiển thị banner chúc mừng rực rỡ
             birthdayText.classList.add('show-text');
+
+            // Bắn pháo hoa Confetti kéo dài 5 giây
+            const duration = 5 * 1000;
+            const animationEnd = Date.now() + duration;
+            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 100 };
+
+            function randomInRange(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+
+            const interval = setInterval(function() {
+                const timeLeft = animationEnd - Date.now();
+
+                if (timeLeft <= 0) {
+                    return clearInterval(interval);
+                }
+
+                const particleCount = 50 * (timeLeft / duration);
+
+                // Bắn từ bên trái màn hình
+                confetti({ 
+                    ...defaults, 
+                    particleCount, 
+                    origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } 
+                });
+                
+                // Bắn từ bên phải màn hình
+                confetti({ 
+                    ...defaults, 
+                    particleCount, 
+                    origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } 
+                });
+            }, 250);
         }
     </script>
 </body>
