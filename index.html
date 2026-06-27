@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday, Long!</title>
-    <!-- Nhúng Google Fonts: font 'Oi' (dành cho tiêu đề) & 'Roboto' (dành cho mô tả) -->
+    <!-- Nhúng Google Fonts: font 'Playfair Display' (tiêu đề) & 'Roboto' (mô tả) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
@@ -90,8 +90,9 @@
         }
 
         .title-oi {
-            font-family: 'Oi', cursive;
-            font-size: 26px;
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            font-weight: 700;
             line-height: 1.5;
             background: linear-gradient(135deg, #ff8a00 0%, #e52e71 50%, #d62eff 100%);
             -webkit-background-clip: text;
@@ -148,8 +149,9 @@
         }
 
         .birthday-text {
-            font-family: 'Oi', cursive;
-            font-size: 36px;
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            font-weight: 700;
             background: linear-gradient(135deg, #ffffff 10%, #ffe885 50%, #ff4b82 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -192,14 +194,14 @@
             max-width: 90%;
         }
 
-        /* Khung chứa bánh kem - Phóng to kích thước của bánh kem */
-     .cake-container {
-    position: relative;
-    width: 800px; /* Số này càng lớn thì hình bánh kem càng to */
-    max-width: 150vw;
-    margin-top: 40px;
-    animation: cakeFloat 4s ease-in-out infinite alternate;
-}
+        /* Khung chứa bánh kem */
+        .cake-container {
+            position: relative;
+            width: 450px; /* Bánh kem có kích cỡ to, rõ nét */
+            max-width: 90vw;
+            margin-top: 40px;
+            animation: cakeFloat 4s ease-in-out infinite alternate;
+        }
 
         .cake-img {
             width: 100%;
@@ -345,8 +347,8 @@
         // Khởi tạo các cây nến theo mô hình 3D Perspective Ellipse
         function createCandles() {
             const age = 15; // Set 15 cây nến
-            const Rx = 20;  // Bán kính ngang (%)
-            const Ry = 7.5; // Bán kính dọc (%) để tạo góc nghiêng 3D
+            const Rx = 33;  // Bán kính ngang (%) chuẩn cho ảnh bánh kem đã được cắt sát viền
+            const Ry = 7.4; // Bán kính dọc (%) tạo độ nghiêng 3D
             const centerX = 50.0; // Điểm căn giữa ngang (%)
             const centerY = 50.6; // Điểm căn giữa dọc (ngay vị trí mặt thớt bánh thứ 2)
 
