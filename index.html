@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday, Long! </title>
+    <title>Happy Birthday, Long!</title>
+    <!-- Nhúng Google Fonts: font 'Oi' (dành cho tiêu đề) & 'Roboto' (dành cho mô tả) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oi&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     
-   
+    <!-- Thư viện tạo hiệu ứng pháo hoa giấy khi thổi tắt hết nến -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     
     <style>
@@ -34,7 +35,7 @@
             display: none !important;
         }
 
-        
+        /* Hiệu ứng đèn Neon mờ ảo ở nền (Aurora) */
         .glow-orb {
             position: absolute;
             border-radius: 50%;
@@ -67,7 +68,7 @@
             100% { transform: translate(60px, 80px) scale(1.15); }
         }
 
-      
+        /* Màn hình khởi đầu 1: Thiết kế hiệu ứng kính mờ (Glassmorphism) */
         .screen-card {
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(20px);
@@ -134,7 +135,7 @@
             transform: translateY(-1px) scale(0.98);
         }
 
-     
+        /* Màn hình 2: Bánh sinh nhật & tương tác thổi nến */
         #cake-screen {
             display: flex;
             flex-direction: column;
@@ -189,7 +190,7 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
         }
 
-    
+        /* Khung chứa bánh kem - Phóng to kích thước của bánh kem */
         .cake-container {
             position: relative;
             width: 600px; 
@@ -307,14 +308,14 @@
 
     <!-- Màn hình 1: Lời giới thiệu & Nút kích hoạt -->
     <div id="setup-screen" class="screen-card">
-        <h1 class="title-oi">HAPPY BIRTHDAY<br> LONG! </h1>
+        <h1 class="title-oi">HAPPY BIRTHDAY<br>LONG!</h1>
         <p class="subtitle">=)))) Wao cindysocool, ik</p>
-        <button id="startBtn" class="btn-primary"> OK VÔ ĐI </button>
+        <button id="startBtn" class="btn-primary">OK VÔ ĐI</button>
     </div>
 
     <!-- Màn hình 2: Bánh sinh nhật & tương tác thổi nến -->
     <div id="cake-screen" class="screen hidden">
-        <h1 id="birthdayText" class="birthday-text">HAPPY BIRTHDAY,<br> LONG! </h1>
+        <h1 id="birthdayText" class="birthday-text">HAPPY BIRTHDAY,<br>LONG!</h1>
         <div class="cake-container">
             <div class="candles" id="candlesContainer"></div>
             <!-- File ảnh cake.png đã được loại bỏ nền ô cờ ô vuông đen trắng -->
@@ -407,7 +408,7 @@
                 // Bắt đầu lắng nghe tiếng gió thổi
                 listenToBlow();
             } catch (err) { 
-                alert('Cho phép' (Allow) sử dụng Microphone!"); 
+                alert("Vui lòng nhấn cho phép (Allow) sử dụng Microphone thì mới thổi nến được nhé!"); 
             }
         });
 
@@ -524,5 +525,4 @@
         }
     </script>
 </body>
-</html>
 </html>
