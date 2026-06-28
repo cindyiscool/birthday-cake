@@ -195,22 +195,20 @@
         }
 
         /* Khung chứa bánh kem */
-        .cake-container {
-            position: relative;
-            width: 450px; /* Bánh kem có kích cỡ to, rõ nét */
-            max-width: 80vw;
-            margin-top: 40px;
-            animation: cakeFloat 4s ease-in-out infinite alternate;
-        }
+.cake-container {
+    position: relative;
+    width: 550px; /* Increased from 450px */
+    max-width: 90vw;
+    margin-top: 40px;
+    animation: cakeFloat 4s ease-in-out infinite alternate;
+}
 
-       .cake-img {
+.cake-img {
     width: 100%;
     height: auto;
     display: block;
     filter: drop-shadow(0 25px 45px rgba(0, 0, 0, 0.7));
     cursor: pointer;
-    transform: scale(1.05); /* Changed to 1.05 for subtle increase */
-    transform-origin: center center;
 }
         @keyframes cakeFloat {
             0% { transform: translateY(0); }
